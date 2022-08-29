@@ -13,6 +13,7 @@ use App\Validators\BaseValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Hash;
 use DB;
+use Auth;
 
 class UserController extends Controller
 {
@@ -30,6 +31,7 @@ class UserController extends Controller
         $this->user = $user;
         $this->role = $role;
         $this->validator = $validator;
+        $this->middleware('permission:manager-user', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
 
     /**
@@ -39,9 +41,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        $data = $this->user->getAllUser();  
-        return view('admin.pages.users.index', compact('data'));
+        if($this->checkAuthorController(['manager-user', 'read-user'])) {
+            $data = $this->user->getAllUser();  
+            return view('admin.pages.users.index', compact('data'));
+        }
+        return abort(403);
     }
 
     /**

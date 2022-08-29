@@ -6,25 +6,25 @@ return [
             'icon' => '<i class="fas fa-chart-bar"></i>',
             'title' => 'Home',
             'route' => 'admin.home',
-            'permissions' => ['admin'],
+            'permissions' => [],
             'childs' => null
         ],
         [
             'icon' => '<i class="fas fa-tachometer-alt"></i>',
             'title' => 'Post',
             'route' => '#',
-            'permissions' => ['admin'],
+            'permissions' => ['supper-admin', 'manager-post', 'read-post'],
             'childs' => [
                 [
                     'index' => 1,
                     'title' => 'List',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-post', 'read-post'], 
                     'route' => 'admin.post.index'
                 ],
                 [
                     'index' => 2,
                     'title' => 'Create',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-post'], 
                     'route' => 'admin.post.create'
                 ]
             ]
@@ -33,18 +33,18 @@ return [
             'icon' => '<i class="fas fa-tachometer-alt"></i>',
             'title' => 'User',
             'route' => '#',
-            'permissions' => ['admin'],
+            'permissions' => ['supper-admin', 'read-user', 'manager-user'],
             'childs' => [
                 [
                     'index' => 1,
                     'title' => 'List',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-user', 'read-user'], 
                     'route' => 'admin.user.index'
                 ],
                 [
                     'index' => 2,
                     'title' => 'Create',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-user'], 
                     'route' => 'admin.user.create'
 
                 ]
@@ -54,18 +54,18 @@ return [
             'icon' => '<i class="fas fa-tachometer-alt"></i>',
             'title' => 'Role',
             'route' => '#',
-            'permissions' => ['admin'],
+            'permissions' => ['supper-admin', 'manager-role-permission'],
             'childs' => [
                 [
                     'index' => 1,
                     'title' => 'List',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-role-permission'], 
                     'route' => 'admin.role.index'
                 ],
                 [
                     'index' => 2,
                     'title' => 'Create',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-role-permission'], 
                     'route' => 'admin.role.create'
 
                 ]
@@ -75,18 +75,18 @@ return [
             'icon' => '<i class="fas fa-tachometer-alt"></i>',
             'title' => 'Permission',
             'route' => '#',
-            'permissions' => ['admin'],
+            'permissions' => ['supper-admin', 'manager-role-permission'],
             'childs' => [
                 [
                     'index' => 1,
                     'title' => 'List',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-role-permission'], 
                     'route' => 'admin.permission.index'
                 ],
                 [
                     'index' => 2,
                     'title' => 'Create',
-                    'permissions' => ['admin'], 
+                    'permissions' => ['supper-admin', 'manager-role-permission'], 
                     'route' => 'admin.permission.create'
 
                 ]

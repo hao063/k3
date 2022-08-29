@@ -30,6 +30,7 @@ class PostController extends Controller
         $this->post = $post;
         $this->user = $user;
         $this->validator = $validator;
+        $this->middleware('permission:manager-post', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
 
 
@@ -40,8 +41,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        if($this->checkAuthorController(['manager-post', 'read-post'])) {
             $data = $this->post->getAllPost();
             return view('admin.pages.posts.index', compact('data'));
+        }
+        return abort(403);
     }
 
     /**
@@ -73,6 +77,7 @@ class PostController extends Controller
         }
         DB::beginTransaction();
 		try {
+            $dataForm['user_id'] = Auth::id();
             if ($request->hasFile('img')) {
                 $image = $request->file('img');
                 $store_path = "uploads/";
@@ -134,6 +139,7 @@ class PostController extends Controller
         }
         DB::beginTransaction();
 		try {
+            $dataForm['user_id'] = Auth::id();
             if ($request->hasFile('img')) {
                 $image = $request->file('img');
                 $store_path = "uploads/";

@@ -38,19 +38,25 @@
                             </td>
                             <td>
                                 <div class="table-data-feature">
+                                    @if((auth()->user()->hasViewPermission('manager-post') || auth()->user()->hasViewPermission('supper-admin')) && auth()->id() == $item['user_id'])
                                     <form action="{{ route('admin.post.destroy', $item['id']) }}" method="POST" class="delete-form-{{ $item['id'] }} d-flex">
                                         {{ method_field('DELETE') }}
                                         {!! csrf_field() !!}
+                                        
                                         <a href="{{route('admin.post.edit', $item['id'])}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                             <i class="zmdi zmdi-edit"></i>
                                         </a>
+                                    @endif
                                         <a href="{{route('admin.post.show', $item['id'])}}" class="item" data-toggle="tooltip" data-placement="top" title="Show">
                                             <i class="zmdi zmdi-eye"></i>
                                         </a>
+                                    @if((auth()->user()->hasViewPermission('manager-post') || auth()->user()->hasViewPermission('supper-admin')) && auth()->id() == $item['user_id'])
                                         <button  type="submit" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                             <i class="zmdi zmdi-delete"></i>
                                         </button>
                                     </form>
+                                    @endif
+                                
                                 </div>
                             </td>
                         </tr>

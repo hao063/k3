@@ -22,6 +22,7 @@ class PermissionController extends Controller
     {
         $this->permission = $permission;
         $this->validator = $validator;
+        $this->middleware('permission:manager-role-permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
 
     /**
@@ -32,8 +33,11 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        $data = $this->permission->getAll();
-        return view('admin.pages.permissions.index', compact('data'));
+        if($this->checkAuthorController(['manager-role-permission'])) {
+            $data = $this->permission->getAll();
+            return view('admin.pages.permissions.index', compact('data'));
+        }
+        return abort(403);
     }
 
     /**

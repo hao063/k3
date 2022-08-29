@@ -39,6 +39,7 @@
                                 @endforeach
                             </td>
                             <td>
+                                @if(auth()->user()->hasViewPermission('manager-user') || auth()->user()->hasViewPermission('supper-admin'))
                                 <div class="table-data-feature">
                                     <form action="{{ route('admin.user.destroy', $item['id']) }}" method="POST" class="delete-form-{{ $item['id'] }} d-flex">
                                         {{ method_field('DELETE') }}
@@ -51,6 +52,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                         <tr class="spacer"></tr>

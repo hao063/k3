@@ -13,6 +13,7 @@ use App\Validators\BaseValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use DB;
+use Auth;
 
 class RoleController extends Controller
 {
@@ -29,6 +30,7 @@ class RoleController extends Controller
         $this->role = $role;
         $this->permission = $permission;
         $this->validator = $validator;
+        $this->middleware('permission:manager-role-permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
     }
 
     /**
@@ -39,8 +41,11 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $data = $this->role->getAllRole();
-        return view('admin.pages.roles.index', compact('data'));
+        if($this->checkAuthorController(['manager-role-permission'])) {
+            $data = $this->role->getAllRole();
+            return view('admin.pages.roles.index', compact('data'));
+        }
+        return abort(403);
     }
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Permission;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -44,5 +46,33 @@ class User extends Authenticatable
 
     public function roles() {
         return $this->belongsToMany(Role::class, 'role_users');
+    }
+
+    public function hasPermission(Permission $permission) {
+        $data = Auth()->user()->roles;
+        $status = false;
+        foreach ($data as $role) {
+            if(optional($role->permissions)->contains($permission)) {
+                $status = true;
+            }
+        }
+        return $status;
+    }
+
+    public function permissions() {
+        $data = Auth()->user()->roles;
+        $data_permissions = [];
+        foreach ($data as $role) {
+            foreach ($role->permissions->toArray() as  $value) {
+                $data_permissions[] = $value['name'];
+            }
+        }
+        return array_unique($data_permissions);
+    }
+
+    public function hasViewPermission($permission) {
+        $permission = Permission::where('name', $permission)->first();
+        if(empty($permission)) return false;
+        return $this->hasPermission($permission);
     }
 }

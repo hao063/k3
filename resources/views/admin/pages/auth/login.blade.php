@@ -22,7 +22,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="#">
+                            <a>
                                 <img src="admins/images/icon/logo.png" alt="CoolAdmin">
                             </a>
                         </div>

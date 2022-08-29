@@ -25,13 +25,11 @@ class PostValidator extends LaravelValidator
         $this->rules = [
             BaseValidatorInterface::RULE_CREATE => [
                 'title' => 'required|unique:posts,title',
-                'user_id' => 'required',
                 'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'content' => 'required',
             ],
             BaseValidatorInterface::RULE_UPDATE => [
                 'title' => 'required|unique:posts,title,{$id}',
-                'user_id' => 'required',
                 'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'content' => 'required',
             ],

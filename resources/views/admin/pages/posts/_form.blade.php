@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    <div class="col-6">
+    {{-- <div class="col-6">
         <div class="has-warning form-group">
             <label for="inputIsInvalid" class=" form-control-label">Choose User</label>
             <select name="user_id" id="select" class="form-control {{$errors->has('user_id') ? 'is-invalid' : ''}}">
@@ -30,8 +30,8 @@
                 </span>
             @endif
         </div>
-    </div>
-    <div class="col-6">
+    </div> --}}
+    <div class="col-12">
         <div class="has-warning form-group">
             <label for="inputIsInvalid" class=" form-control-label">Choose image</label>
             <input type="file" name="img" id="file-input" name="file-input" class="form-control-file {{$errors->has('img') ? 'is-invalid' : ''}}">

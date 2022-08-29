@@ -11,6 +11,8 @@ use App\Validators\AuthValidator;
 use App\Validators\BaseValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
+use App\Models\Permission;
+
 use Auth;
 use Hash;
 use App\Jobs\ForgetPasswordJob;
@@ -46,12 +48,18 @@ class AuthController extends Controller
         $remember = isset($dataForm['remember']) ? true : false;
         $error = 'Incorrect account or password.';
         if (Auth::attempt(['email' => $dataForm['email'], 'password' => $dataForm['password']], $remember)) {
-            return redirect()->route('home');
+            
+            if(Auth::user()->hasPermission(Permission::where('name', 'user')->first())) {
+                return redirect()->route('home');
+            }else {
+                Auth::logout();
+                $error = 'This account does not have admin rights!';
+            }
         }
         return redirect()->back()->with('error', $error);
     }
 
-    public function logout() {
+    public function logout() {  
         Auth::logout();
         return redirect()->back();
     }
@@ -144,7 +152,7 @@ class AuthController extends Controller
 
         $data = $this->user->upadtePassword($dataForm);
         if(!empty($data)) {
-            return redirect()->route('login.frontend')->with('success', 'Thay đổi mật khẩu thành công.');
+            return redirect()->route('login.frontend')->with('success', 'successful, please login to use the service.');
         }
         return abort(404); 
     }
