@@ -46,7 +46,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     
     public function checkUserForget($email) {
         $data = $this->model->where('email', $email)->first();
-        if(!empty($data)) {
+        if(!empty($data) && count(array_intersect(['user'], $data->permissions(1, $data->roles))) > 0 ) {
             return true;
         }
         return false;

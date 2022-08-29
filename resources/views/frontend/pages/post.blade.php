@@ -23,49 +23,40 @@
                                     <div class="col-12 col-md-6">
                                         <div class="world-catagory-slider owl-carousel wow fadeInUpBig" data-wow-delay="0.1s">
                                             @foreach ($data as $item)
-                                                <!-- Single Blog Post -->
-                                                <div class="single-blog-post">
-                                                    <!-- Post Thumbnail -->
-                                                    <div class="post-thumbnail">
-                                                        <img src="frontends/img/blog-img/b1.jpg" alt="">
-                                                        <!-- Catagory -->
-                                                        <div class="post-cta"><a href="#">travel</a></div>
-                                                    </div>
-                                                    <!-- Post Content -->
-                                                    <div class="post-content">
-                                                        <a href="#" class="headline">
-                                                            <h5>{{$item['title']}}</h5>
-                                                        </a>
-                                                        <p>{{$item['content']}}</p>
-                                                        <!-- Post Meta -->
-                                                        <div class="post-meta">
-                                                            <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">{{$item['created_at']}}</a></p>
+                                                    <div class="single-blog-post">
+                                                        <div class="post-thumbnail">
+                                                            <img src="{{$item['img']}}" alt="">
+                                                            <div class="post-cta"><a href="#">travel</a></div>
+                                                        </div>
+                                                        <div class="post-content">
+                                                            <a href="{{route('detail', $item['id'])}}" class="headline">
+                                                                <h5>{{$item['title']}}</h5>
+                                                            </a>
+                                                            <p>{{$item['content']}}</p>
+                                                            <div class="post-meta">
+                                                                <p><a class="post-author">{{$item['user']['name']}}</a> on <a class="post-date">{{date('d-m-Y H:i:s', strtotime($item['created_at']))}}</a></p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-md-6">
                                         @foreach($data as $item)
-                                            <!-- Single Blog Post -->
-                                            <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
-                                                <!-- Post Thumbnail -->
-                                                <div class="post-thumbnail">
-                                                    <img src="frontends/img/blog-img/b10.jpg" alt="">
-                                                </div>
-                                                <!-- Post Content -->
-                                                <div class="post-content">
-                                                    <a href="#" class="headline">
-                                                        <h5>{{$item['title']}}</h5>
-                                                    </a>
-                                                    <!-- Post Meta -->
-                                                    <div class="post-meta">
-                                                        <p><a href="#" class="post-author">Katy Liu</a> on <a href="#" class="post-date">{{$item['created_at']}}</a></p>
+                                                <div class="single-blog-post post-style-2 d-flex align-items-center wow fadeInUpBig" data-wow-delay="0.2s">
+                                                    <div class="post-thumbnail">
+                                                        <img src="{{$item['img']}}" alt="">
+                                                    </div>
+                                                    <div class="post-content">
+                                                        <a href="{{route('detail', $item['id'])}}" class="headline">
+                                                            <h5>{{$item['title']}}</h5>
+                                                        </a>
+                                                        <div class="post-meta">
+                                                            <p><a class="post-author">{{$item['user']['name']}}</a> on <a class="post-date">{{date('d-m-Y H:i:s', strtotime($item['created_at']))}}</a></p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         @endforeach
                                     </div>
                                 </div>

@@ -59,8 +59,12 @@ class User extends Authenticatable
         return $status;
     }
 
-    public function permissions() {
-        $data = Auth()->user()->roles;
+    public function permissions($type = 0, $roles = []) {
+        if($type == 0) {
+            $data = Auth()->user()->roles;
+        }else {
+            $data = $roles;
+        }
         $data_permissions = [];
         foreach ($data as $role) {
             foreach ($role->permissions->toArray() as  $value) {

@@ -10,4 +10,6 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function removeImgOld($id);
 
     public function finDetalPost($id);
+
+    public function detailPostAndPostOrther($id); 
 }

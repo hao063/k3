@@ -2,6 +2,7 @@
 namespace App\Repositories\Post;
 
 use App\Repositories\BaseRepository;
+use App\Models\Comment;
 
 class PostRepository extends BaseRepository implements PostRepositoryInterface
 {
@@ -22,5 +23,13 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
 
     public function finDetalPost($id) {
         return $this->model->with('user')->where('id', $id)->first();
+    }
+
+    public function detailPostAndPostOrther($id) {
+        $data = [];
+        $data['post-detail'] = $this->model->with('user')->where('id', $id)->first()->toArray();
+        $data['posts-orther'] = $this->model->with('user')->where('id', '<>', $id)->limit(3)->orderBy('id', 'DESC')->get()->toArray();
+        $data['comments'] = Comment::with('user')->where('post_id', $id)->orderBy('id', 'DESC')->get()->toArray();
+        return $data;
     }
 }

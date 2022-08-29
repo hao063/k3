@@ -14,6 +14,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 use DB;
 use Auth;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -139,7 +140,6 @@ class PostController extends Controller
         }
         DB::beginTransaction();
 		try {
-            $dataForm['user_id'] = Auth::id();
             if ($request->hasFile('img')) {
                 $image = $request->file('img');
                 $store_path = "uploads/";

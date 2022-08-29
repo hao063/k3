@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Permission;
 
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        \App\Models\Post::class => \App\Policies\PostPolicy::class,
     ];
 
     /**
@@ -28,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::before(function ($user) {
-            return $user->hasViewPermission('supper-admin');
+            return $user->hasViewPermission('supper-admin') ? true : null;
         });
 
         if(!$this->app->runningInConsole()) {
