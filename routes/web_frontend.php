@@ -17,9 +17,8 @@ Route::post('/post-password-new', [AuthController::class, 'postPasswordNew'])->n
 
 // Post
 Route::get('/', [PostController::class, 'index'])->name('home');
-
+Route::get('/post-detail/{id}', [PostController::class, 'detail'])->name('detail');
 Route::group(['middleware' => 'auth.user'], function () {
-    Route::get('/post-detail/{id}', [PostController::class, 'detail'])->name('detail');
     Route::post('/post-comment/{id}', [PostController::class, 'postComment'])->name('post.comment');
     Route::get('/delete-comment/{id}', [PostController::class, 'deteteComment'])->name('delete.comment');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout.frontend');
